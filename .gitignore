@@ -26,3 +26,6 @@
 !/tmp/storage/.keep
 
 /public/assets
+
+.idea/
+brakeman_results.html
