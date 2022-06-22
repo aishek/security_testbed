@@ -1,0 +1,31 @@
+name: Security
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.1
+          bundler-cache: true
+
+      - name: Install bundle-audit
+        run: gem install bundle-audit
+
+      - name: Run bundle-audit
+        run: bundle exec bundle-audit check --update
+
+      - name: Run brakeman ruby code security audit
+        run: bundle exec brakeman -7 -A
